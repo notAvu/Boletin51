@@ -9,13 +9,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import clases.Equipo;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Equipo[] nbaTeams={
             new Equipo("Bucks",R.drawable.bucks),
@@ -38,6 +40,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         NbaAdapter<Equipo> adapter= new NbaAdapter<Equipo>(this, R.id.list_item ,nbaTeams);
+        Spinner sp= findViewById(R.id.spinTeams);
+        sp.setAdapter(adapter);
+        sp.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     public class ViewHolder
@@ -79,16 +94,17 @@ public class MainActivity extends AppCompatActivity {
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
         {
             View view = super.getView(position, convertView, parent);
-
-            LayoutInflater inflater= getLayoutInflater();
-            inflater.inflate(R.layout.custom_list_layout, parent, false);
-            TextView text= findViewById(R.id.list_item);
-            ImageView iv=findViewById(R.id.image);
-            ImageView image = view.findViewById(R.id.image);
-            TextView item = view.findViewById(R.id.list_item);
-            item.setText(nbaTeams[position].toString());
-            image.setImageResource(nbaTeams[position].getIdEscudo());
-
+            View row =convertView;
+            if(row==null) {
+                LayoutInflater inflater = getLayoutInflater();
+                inflater.inflate(R.layout.custom_list_layout, parent, false);
+                TextView text = findViewById(R.id.list_item);
+                ImageView iv = findViewById(R.id.image);
+                ImageView image = view.findViewById(R.id.image);
+                TextView item = view.findViewById(R.id.list_item);
+                item.setText(nbaTeams[position].toString());
+                image.setImageResource(nbaTeams[position].getIdEscudo());
+            }
             return view;
         }
 
