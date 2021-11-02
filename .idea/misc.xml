@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Boletin51/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Boletin51/app/src/main/res/layout/custom_list_layout.xml" value="0.20520833333333333" />
+        <entry key="..\:/Boletin51/app/src/main/res/layout/normal_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/afernandez/AndroidStudioProjects/Boletin51/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/afernandez/AndroidStudioProjects/Boletin51/app/src/main/res/layout/custom_list_layout.xml" value="0.36666666666666664" />
       </map>
