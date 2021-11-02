@@ -21,15 +21,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     Equipo[] nbaTeams={
             new Equipo("Bucks",R.drawable.bucks),
+            new Equipo("Cavaliers",R.drawable.cavaliers),
             new Equipo("Celtics",R.drawable.celtics),
             new Equipo("Bulls",R.drawable.chicago),
             new Equipo("Golden State Warriors",R.drawable.gsw),
             new Equipo("Knicks",R.drawable.knicks),
-            new Equipo("Maverics",R.drawable.mavericks),
+            new Equipo("Mavericks",R.drawable.mavericks),
             new Equipo("Seventy Sixers",R.drawable.sevsixers),
             new Equipo("Spurs",R.drawable.spurs),
             new Equipo("Nets",R.drawable.nets),
-            new Equipo("Cavaliers",R.drawable.cavaliers),
             new Equipo("Heat",R.drawable.heat),
             new Equipo("Raptors",R.drawable.raptors),
             new Equipo("Phoenix",R.drawable.phoenix)
@@ -85,23 +85,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public class NbaAdapter<T> extends ArrayAdapter
     {
-        public NbaAdapter(@NonNull Context context, int resource, int textViewResourceId, @NonNull Object[] objects) {
-            super(context, resource, textViewResourceId, objects);
-        }
+        Context context;
+        T[] objects;
+
         public NbaAdapter(@NonNull Context context, int resource,  @NonNull Object[] objects) {
             super(context, resource, objects);
         }
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
         {
-            View view = super.getView(position, convertView, parent);
             View row =convertView;
             LayoutInflater inflater = getLayoutInflater();
             ViewHolder holder;
             if(row==null) {
                 row=inflater.inflate(R.layout.custom_list_layout, parent, false);
-                ImageView image = view.findViewById(R.id.image);
-                TextView item = view.findViewById(R.id.list_item);
+                ImageView image = row.findViewById(R.id.image);
+                TextView item = row.findViewById(R.id.list_item);
 
                 item.setText(nbaTeams[position].getNombre());
                 image.setImageResource(nbaTeams[position].getIdEscudo());
