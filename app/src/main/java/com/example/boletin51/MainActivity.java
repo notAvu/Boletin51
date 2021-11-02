@@ -39,8 +39,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        NbaAdapter<Equipo> adapter= new NbaAdapter<Equipo>(this, R.id.list_item ,nbaTeams);
         Spinner sp= findViewById(R.id.spinTeams);
+        NbaAdapter<Equipo> adapter= new NbaAdapter<>(this, R.id.list_item ,nbaTeams);
+
         sp.setAdapter(adapter);
         sp.setOnItemSelectedListener(this);
     }
@@ -95,17 +96,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         {
             View view = super.getView(position, convertView, parent);
             View row =convertView;
+            LayoutInflater inflater = getLayoutInflater();
+            ViewHolder holder;
             if(row==null) {
-                LayoutInflater inflater = getLayoutInflater();
-                inflater.inflate(R.layout.custom_list_layout, parent, false);
-                TextView text = findViewById(R.id.list_item);
-                ImageView iv = findViewById(R.id.image);
+                row=inflater.inflate(R.layout.custom_list_layout, parent, false);
                 ImageView image = view.findViewById(R.id.image);
                 TextView item = view.findViewById(R.id.list_item);
-                item.setText(nbaTeams[position].toString());
+
+                item.setText(nbaTeams[position].getNombre());
                 image.setImageResource(nbaTeams[position].getIdEscudo());
+                holder = new ViewHolder(item, image);
             }
-            return view;
+            else
+                { holder=(ViewHolder) row.getTag(); }
+            return row;
         }
 
 
