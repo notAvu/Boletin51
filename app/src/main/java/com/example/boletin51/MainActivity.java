@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import clases.Equipo;
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             new Equipo("Knicks",R.drawable.knicks),
             new Equipo("Mavericks",R.drawable.mavericks),
             new Equipo("Seventy Sixers",R.drawable.sevsixers),
-            new Equipo("Spurs",R.drawable.spurs),
             new Equipo("Nets",R.drawable.nets),
             new Equipo("Heat",R.drawable.heat),
             new Equipo("Raptors",R.drawable.raptors),
@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Spinner sp= findViewById(R.id.spinTeams);
         NbaAdapter<Equipo> adapter= new NbaAdapter<>(this, R.id.list_item ,nbaTeams);
-
         sp.setAdapter(adapter);
         sp.setOnItemSelectedListener(this);
     }
@@ -85,9 +84,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public class NbaAdapter<T> extends ArrayAdapter
     {
-        Context context;
-        T[] objects;
-
         public NbaAdapter(@NonNull Context context, int resource,  @NonNull Object[] objects) {
             super(context, resource, objects);
         }
@@ -99,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             ViewHolder holder;
             if(row==null) {
                 row=inflater.inflate(R.layout.custom_list_layout, parent, false);
+
                 ImageView image = row.findViewById(R.id.image);
                 TextView item = row.findViewById(R.id.list_item);
 
@@ -108,10 +105,29 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
             else
                 { holder=(ViewHolder) row.getTag(); }
-            return row;
+            return row ;
         }
 
 
+        @Override
+        public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View row =convertView;
+            LayoutInflater inflater = getLayoutInflater();
+            ViewHolder holder;
+            if(row==null) {
+                row=inflater.inflate(R.layout.custom_list_layout, parent, false);
+
+                ImageView image = row.findViewById(R.id.image);
+                TextView item = row.findViewById(R.id.list_item);
+
+                item.setText(nbaTeams[position].getNombre());
+                image.setImageResource(nbaTeams[position].getIdEscudo());
+                holder = new ViewHolder(item, image);
+            }
+            else
+            { holder=(ViewHolder) row.getTag(); }
+            return row ;
+        }
     }
 
 }
