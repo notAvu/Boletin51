@@ -83,7 +83,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        ImageView beegImage= findViewById(R.id.beeg);
+        beegImage.setImageResource(nbaTeams[position].getIdEscudo());
     }
 
     @Override
@@ -147,7 +148,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         @Override
         public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            return getView(position, convertView , parent);
+            View row =convertView;
+            LayoutInflater inflater = getLayoutInflater();
+            ViewHolder holder;
+            if(row==null) {
+                row=inflater.inflate(R.layout.normal_layout, parent, false);
+
+                ImageView image = row.findViewById(R.id.image);
+                TextView item = row.findViewById(R.id.nombreEquipo);
+                holder = new ViewHolder(item, image);
+                row.setTag(holder);
+            }
+            else
+            { holder=(ViewHolder) row.getTag(); }
+            holder.getTv().setText(nbaTeams[position].getNombre());
+            holder.getImg().setImageResource(nbaTeams[position].getIdEscudo());
+            return row ;
         }
     }
 
